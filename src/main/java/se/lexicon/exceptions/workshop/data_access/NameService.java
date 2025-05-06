@@ -5,6 +5,7 @@ import java.util.Random;
 
 import se.lexicon.exceptions.workshop.domain.Gender;
 import se.lexicon.exceptions.workshop.domain.Person;
+import se.lexicon.exceptions.workshop.exception.DuplicateNameException;
 import se.lexicon.exceptions.workshop.fileIO.CSVReader_Writer;
 
 public class NameService {
@@ -62,8 +63,12 @@ public class NameService {
 	     * @param name
 	     */
 	    public void addFemaleFirstName(String name){
-	    	femaleFirstNames.add(name);
-	    	CSVReader_Writer.saveFemaleNames(femaleFirstNames);
+			if (femaleFirstNames.contains(name)) {
+				throw new DuplicateNameException("Error: The name " + name + " already exists.", name);
+			} else {
+				femaleFirstNames.add(name);
+				CSVReader_Writer.saveFemaleNames(femaleFirstNames);
+			}
 	    		
 	    }
 
@@ -74,8 +79,12 @@ public class NameService {
 	     * @param name
 	     */
 	    public void addMaleFirstName(String name){
-	    	maleFirstNames.add(name);
-	        CSVReader_Writer.saveMaleNames(maleFirstNames);
+			if (maleFirstNames.contains(name)) {
+				throw new DuplicateNameException("Error: The name " + name + " already exists.", name);
+			} else {
+				maleFirstNames.add(name);
+				CSVReader_Writer.saveMaleNames(maleFirstNames);
+			}
 	    }
 
 	    /**
@@ -85,9 +94,13 @@ public class NameService {
 	     * @param lastName
 	     */
 	    public void addLastName(String lastName){
-	    	lastNames.add(lastName);
-	        CSVReader_Writer.saveLastNames(lastNames);
-	    }
+			if (lastNames.contains(lastName)) {
+				throw new DuplicateNameException("Error: The name " + lastName + " already exists.", lastName);
+			} else {
+				lastNames.add(lastName);
+				CSVReader_Writer.saveLastNames(lastNames);
+			}
+		}
 
 
 	
